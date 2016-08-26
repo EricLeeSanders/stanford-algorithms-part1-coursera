@@ -8,19 +8,19 @@ import week5.MinHeap;
 
 /**
  * Computes the median of a running list of integers. Uses two heaps, a max heap
- * and a min heap.
+ * and a min heap. Running Time: O(n * log n)
  * 
  * @author Eric
  *
  */
 public class HeapMedian {
-	//max heap for lower values, min heap for higher values
-	private final MaxHeap<Integer> maxHeap = new MaxHeap<Integer>(); 
-	private final MinHeap<Integer> minHeap = new MinHeap<Integer>(); 
+	// max heap for lower values, min heap for higher values
+	private final MaxHeap<Integer> maxHeap = new MaxHeap<Integer>();
+	private final MinHeap<Integer> minHeap = new MinHeap<Integer>();
 
 	/**
 	 * Inserts an Integer into either the max heap or the min heap.
-	 * 
+	 *
 	 * @param val
 	 */
 	public void insert(Integer val) {
@@ -47,7 +47,7 @@ public class HeapMedian {
 	/**
 	 * Resizes the heaps. The size difference between the two heaps should never
 	 * be greater than 1.
-	 * 
+	 *
 	 * @param maxSize
 	 * @param minSize
 	 */
@@ -63,7 +63,7 @@ public class HeapMedian {
 
 	/**
 	 * Finds the median
-	 * 
+	 *
 	 * @return
 	 */
 	public int findMedian() {
@@ -86,7 +86,7 @@ public class HeapMedian {
 			hm.insert(scanner.nextInt());
 			int median = hm.findMedian();
 			medianTotal += median;
-		}		
+		}
 		scanner.close();
 		System.out.println(medianTotal % 10000);
 

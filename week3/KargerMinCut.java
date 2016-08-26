@@ -88,8 +88,7 @@ public class KargerMinCut {
 	 * Creates a list of vertices from input where the first integer is the
 	 * vertex and the remaining integers are adjacent vertices.
 	 * 
-	 * @param input
-	 *            - list of vertices and their edges
+	 * @param input - list of vertices and their edges
 	 * @return Map<Integer, List<Integer>>
 	 */
 	private static Map<Integer, List<Integer>> createVertices(List<List<String>> input) {

@@ -93,16 +93,11 @@ public class KosarajuTwoPass {
 	/**
 	 * Calculates the number of vertices in each SCC
 	 *
-	 * @param G
-	 *            - Graph
-	 * @param v
-	 *            - The vertex that is being evaluated
-	 * @param visited
-	 *            - Array to know if a vertex has been visited
-	 * @param leader
-	 *            - The vertex that is the leader of the SCC
-	 * @param sccCount
-	 *            - The number of vertices in each SCC
+	 * @param G - Graph
+	 * @param v - The vertex that is being evaluated
+	 * @param visited - Array to know if a vertex has been visited
+	 * @param leader - The vertex that is the leader of the SCC
+	 * @param sccCount - The number of vertices in each SCC
 	 */
 	private void scc_dfs(Graph G, int v, boolean[] visited, int leader, int[] sccCount) {
 		visited[v] = true;
