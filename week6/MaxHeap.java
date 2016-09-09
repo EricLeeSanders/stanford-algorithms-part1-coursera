@@ -27,16 +27,23 @@ public class MaxHeap<T extends Comparable<T>> {
 	@SuppressWarnings("unchecked")
 	public MaxHeap(int capacity) {
 		this.heap = (T[]) new Comparable[capacity + 1];
-		this.heapMap = new HashMap<T, Integer>(this.heap.length);
+		this.heapMap = new HashMap<T, Integer>(capacity + 1);
 	}
 
-	public MaxHeap(T[] heap) {
-		this.heap = heap;
-		this.heapMap = new HashMap<T, Integer>(heap.length);
-		this.last = heap.length - 1;
+	@SuppressWarnings("unchecked")
+	public MaxHeap(T[] h) {
+		this.heap = (T[]) new Comparable[h.length + 1];
+		for(int i = 0; i < h.length; i++){
+			heap[i+1] = h[i];
+		}
+		this.heapMap = new HashMap<T, Integer>(h.length + 1);
+		this.last = h.length;
 		buildHeap();
 	}
-
+	
+	/**
+	 * Builds the heap - O(n)
+	 */
 	private void buildHeap() {
 		for (int i = 1; i < this.heap.length; i++) {
 			this.heapMap.put(this.heap[i], i);
@@ -215,14 +222,15 @@ public class MaxHeap<T extends Comparable<T>> {
 	}
 
 	public int getSize() {
-		return this.last - 1; // -1 for position 0
+		return this.last;
 	}
 
 	public static void main(String[] args) {
 		Integer[] arr = new Integer[10000];
 		Random rand = new Random();
 		for (int i = 0; i < arr.length; i++) {
-			arr[i] = rand.nextInt(10000);
+			arr[i] = rand.nextInt(10000) + 1;
+			
 		}
 		MaxHeap<Integer> heap = new MaxHeap<Integer>(arr);
 		List<Integer> sortedList = new ArrayList<Integer>(arr.length);
@@ -234,7 +242,5 @@ public class MaxHeap<T extends Comparable<T>> {
 				System.out.println("Failed: " + sortedList.get(i) + " - " + sortedList.get(i + 1));
 			}
 		}
-
-		System.out.println("done");
 	}
 }
