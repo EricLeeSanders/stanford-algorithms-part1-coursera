@@ -26,18 +26,18 @@ public class MinHeap<T extends Comparable<T>> {
 
 	@SuppressWarnings("unchecked")
 	public MinHeap(int capacity) {
-		this.heap = (T[]) new Comparable[capacity + 1];
-		this.heapMap = new HashMap<T, Integer>(capacity + 1);
+		heap = (T[]) new Comparable[capacity + 1];
+		heapMap = new HashMap<T, Integer>(capacity + 1);
 	}
 
 	@SuppressWarnings("unchecked")
 	public MinHeap(T[] h) {
-		this.heap = (T[]) new Comparable[h.length + 1];
+		heap = (T[]) new Comparable[h.length + 1];
 		for(int i = 0; i < h.length; i++){
 			heap[i+1] = h[i];
 		}
-		this.heapMap = new HashMap<T, Integer>(h.length + 1);
-		this.last = h.length;
+		heapMap = new HashMap<T, Integer>(h.length + 1);
+		last = h.length;
 		buildHeap();
 	}
 
@@ -45,10 +45,10 @@ public class MinHeap<T extends Comparable<T>> {
 	 * Builds the heap - O(n)
 	 */
 	private void buildHeap() {
-		for (int i = 1; i < this.heap.length; i++) {
-			this.heapMap.put(this.heap[i], i);
+		for (int i = 1; i < heap.length; i++) {
+			heapMap.put(heap[i], i);
 		}
-		int n = this.heap.length;
+		int n = heap.length;
 		for (int i = n / 2; i > 0; i--) {
 			bubbleDown(i);
 		}
@@ -67,11 +67,11 @@ public class MinHeap<T extends Comparable<T>> {
 	}
 
 	private void swap(int x, int y) {
-		T tmp = this.heap[x];
-		this.heap[x] = this.heap[y];
-		this.heap[y] = tmp;
-		this.heapMap.put(this.heap[x], x);
-		this.heapMap.put(this.heap[y], y);
+		T tmp = heap[x];
+		heap[x] = heap[y];
+		heap[y] = tmp;
+		heapMap.put(heap[x], x);
+		heapMap.put(heap[y], y);
 	}
 
 	/**
@@ -80,15 +80,12 @@ public class MinHeap<T extends Comparable<T>> {
 	 * @param t
 	 */
 	public void insert(T t) {
-		if (contains(t)) {
-			return;
-		}
 		if (isFull()) {
 			resize();
 		}
-		this.heap[++this.last] = t;
-		this.heapMap.put(t, this.last);
-		bubbleUp(this.last);
+		heap[++last] = t;
+		heapMap.put(t, last);
+		bubbleUp(last);
 	}
 
 	/**
@@ -100,10 +97,10 @@ public class MinHeap<T extends Comparable<T>> {
 		if (isEmpty()) {
 			return null;
 		}
-		this.heapMap.remove(this.heap[1]);
-		T rootcopy = this.heap[1];
-		this.heap[1] = this.heap[this.last--];
-		this.heapMap.put(this.heap[1], 1);
+		heapMap.remove(heap[1]);
+		T rootcopy = heap[1];
+		heap[1] = heap[last--];
+		heapMap.put(heap[1], 1);
 		bubbleDown(1);
 
 		return rootcopy;
@@ -118,7 +115,7 @@ public class MinHeap<T extends Comparable<T>> {
 		if (isEmpty()) {
 			return null;
 		}
-		return this.heap[1];
+		return heap[1];
 	}
 
 	/**
@@ -132,7 +129,7 @@ public class MinHeap<T extends Comparable<T>> {
 		if (pos == 1) {
 			return;
 		}
-		if (this.heap[parent(pos)].compareTo(this.heap[pos]) <= 0) {
+		if (heap[parent(pos)].compareTo(heap[pos]) <= 0) {
 			return;
 		}
 		swap(pos, parent(pos));
@@ -156,11 +153,11 @@ public class MinHeap<T extends Comparable<T>> {
 		// right child is smaller
 		if (numKids > 1) {
 			int rightChildPos = rightChild(pos);
-			if (this.heap[rightChildPos].compareTo(this.heap[leftChildPos]) < 0) {
+			if (heap[rightChildPos].compareTo(heap[leftChildPos]) < 0) {
 				smallChildPos = rightChildPos;
 			}
 		}
-		if (this.heap[smallChildPos].compareTo(this.heap[pos]) < 0) {
+		if (heap[smallChildPos].compareTo(heap[pos]) < 0) {
 			swap(smallChildPos, pos);
 			bubbleDown(smallChildPos);
 		}
@@ -177,7 +174,7 @@ public class MinHeap<T extends Comparable<T>> {
 		if (!contains(t)) {
 			return;
 		}
-		int pos = this.heapMap.get(t);
+		int pos = heapMap.get(t);
 		bubbleUp(pos);
 	}
 
@@ -192,37 +189,37 @@ public class MinHeap<T extends Comparable<T>> {
 		if (!contains(t)) {
 			return;
 		}
-		int pos = this.heapMap.get(t);
+		int pos = heapMap.get(t);
 		bubbleDown(pos);
 	}
 
 	private int countKids(int pos) {
-		if (this.last < leftChild(pos)) {
+		if (last < leftChild(pos)) {
 			return 0;
-		} else if (this.last == leftChild(pos)) {
+		} else if (last == leftChild(pos)) {
 			return 1;
 		}
 		return 2;
 	}
 
 	private void resize() {
-		this.heap = Arrays.copyOf(this.heap, this.heap.length * 2);
+		heap = Arrays.copyOf(heap, heap.length * 2);
 	}
 
 	public boolean isFull() {
-		return ((this.last + 1) >= this.heap.length);
+		return ((last + 1) >= heap.length);
 	}
 
 	public boolean isEmpty() {
-		return (this.last <= 0);
+		return (last <= 0);
 	}
 
 	public boolean contains(T t) {
-		return this.heapMap.containsKey(t);
+		return heapMap.containsKey(t);
 	}
 
 	public int getSize() {
-		return this.last;
+		return last;
 	}
 	
 	public static void main(String[] args) {
@@ -245,3 +242,4 @@ public class MinHeap<T extends Comparable<T>> {
 
 	}
 }
+
