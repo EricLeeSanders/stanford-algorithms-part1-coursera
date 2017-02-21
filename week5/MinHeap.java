@@ -9,7 +9,7 @@ import java.util.Random;
 
 /**
  * Minimum heap data structure. Heap can be built in linear time. Uses a hashmap
- * for constant time look up.
+ * for constant time look up. Does not support duplicate items.
  *
  * @author Eric
  *
@@ -75,11 +75,17 @@ public class MinHeap<T extends Comparable<T>> {
 	}
 
 	/**
-	 * Insert into the heap - O(log n)
+	 * Insert into the heap.
+	 * Duplicate items cannot be inserted.
+	 * - O(log n)
+	 * 
 	 *
 	 * @param t
 	 */
 	public void insert(T t) {
+        if (contains(t)){
+            return;
+        }
 		if (isFull()) {
 			resize();
 		}

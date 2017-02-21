@@ -9,7 +9,7 @@ import java.util.Random;
 
 /**
  * Maximum heap data structure. Heap can be built in linear time. Uses a hashmap
- * for constant time look up.
+ * for constant time look up. Does not support duplicate items.
  *
  * @author Eric
  *
@@ -74,12 +74,17 @@ public class MaxHeap<T extends Comparable<T>> {
 		heapMap.put(heap[y], y);
 	}
 
-	/**
-	 * Insert into the heap - O(log n)
-	 *
-	 * @param t
-	 */
+    /**
+     * Insert into the heap.
+     * Duplicate items cannot be inserted.
+     * - O(log n)
+     * 
+     *
+     * @param t
+     */
 	public void insert(T t) {
+	        return;
+	    }
 		if (isFull()) {
 			resize();
 		}
