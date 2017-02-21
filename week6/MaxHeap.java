@@ -83,6 +83,7 @@ public class MaxHeap<T extends Comparable<T>> {
      * @param t
      */
 	public void insert(T t) {
+	    if (contains(t)){
 	        return;
 	    }
 		if (isFull()) {
